@@ -86,7 +86,7 @@
                                      defaultImage.size.height);
         }
         imageView.image = defaultImage;
-        
+        imageView.tag = 99;
         [touchView addSubview:imageView];
         [scroll addSubview:touchView];
         
@@ -187,10 +187,8 @@
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    for (UIView *view in scrollView.subviews) {
-        return view;
-    }
-    return nil;
+
+    return [scrollView viewWithTag:99];
 }
 
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
@@ -203,7 +201,7 @@
     
     CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?(scrollView.bounds.size.height - scrollView.contentSize.height)/2 : 0.0;
 
-    UIView *view = scrollView.subviews[0];
+    UIView *view = [scrollView viewWithTag:99];
     view.center = CGPointMake(scrollView.contentSize.width/2 + offsetX,scrollView.contentSize.height/2 + offsetY);
 }
 
